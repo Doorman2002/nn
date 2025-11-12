@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Acleray | FAQ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #090a0f;
+      --surface: #11131a;
+      --surface-soft: #1a1d26;
+      --accent: #ff2d75;
+      --accent-soft: #ff4d94;
+      --text: #e6e8ec;
+      --text-muted: #8a8f9e;
+      --success: #00f0b3;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Animated Grid Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(rgba(9, 10, 15, 0.92), rgba(9, 10, 15, 0.92)),
+        repeating-linear-gradient(0deg, var(--border), var(--border) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(90deg, var(--border), var(--border) 1px, transparent 1px, transparent 40px);
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 45, 117, 0.03) 0%, transparent 30%),
+        radial-gradient(circle at 70% 80%, rgba(0, 240, 179, 0.03) 0%, transparent 40%);
+      animation: drift 50s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-40px, -40px); }
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 120px 0 100px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 60px;
+      font-size: 1.1rem;
+    }
+
+    /* ACCORDION */
+    .faq-item {
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface-soft);
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(255, 45, 117, 0.3);
+    }
+
+    .faq-question {
+      padding: 22px 28px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: '+';
+      font-size: 1.8rem;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-question::after {
+      content: '−';
+      transform: rotate(0deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.85, 0, 0.15, 1), padding 0.4s ease;
+      padding: 0 28px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+      padding: 0 28px 24px;
+    }
+
+    /* Back to top link */
+    .back-link {
+      display: inline-block;
+      margin-top: 40px;
+      color: var(--accent-soft);
+      font-weight: 600;
+      text-align: center;
+      width: 100%;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container { padding: 90px 0 70px; }
+      h1 { font-size: 2.2rem; }
+      .faq-question { font-size: 1.1rem; padding: 18px 20px; }
+      .faq-answer { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Frequently <span class="highlight">Asked</span></h1>
+    <p class="subtitle">Everything you need to know about Acleray Investments and our investment approach.</p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Who is eligible to invest with NEXUS?</div>
+        <div class="faq-answer">
+          Our funds are available exclusively to accredited investors, qualified purchasers, and institutional clients as defined by SEC Regulation D. Minimum allocations typically start at $1M.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">What is your investment philosophy?</div>
+        <div class="faq-answer">
+          We believe in asymmetric risk/reward: deploying capital where the upside significantly outweighs the downside. Our edge comes from proprietary data feeds, behavioral modeling, and real-time market structure analysis — not speculation.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">How liquid are your strategies?</div>
+        <div class="faq-answer">
+          Liquidity terms vary by strategy. Quant Macro offers quarterly redemptions with 45-day notice. Volatility Arbitrage is monthly. Deep Tech VC is illiquid (5–7 year horizon). Full terms are disclosed during onboarding.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Do you use leverage?</div>
+        <div class="faq-answer">
+          Yes — but only when risk-adjusted returns justify it. We employ dynamic leverage capped by volatility regimes, never exceeding 3x gross exposure. All positions are stress-tested against black swan scenarios.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">How do you manage downside risk?</div>
+        <div class="faq-answer">
+          We run a multi-layered defense: volatility targeting, tail-risk hedging via options, sector diversification, and real-time drawdown controls. Our max historical drawdown is -11.2% (March 2020).
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Can I see a full track record?</div>
+        <div class="faq-answer">
+          Verified performance data is available under NDA during the due diligence process. We comply with GIPS standards and provide audited statements quarterly. Past performance ≠ future results.
+        </div>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Homepage</a>
+  </div>
+
+  <script>
+    // Accordion functionality
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+
+    // Add subtle scroll effect to background
+    document.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      document.body.style.backgroundPosition = `0 ${-scrollY * 0.2}px`;
+    });
+  </script>
+</body>
+</html>

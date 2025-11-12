@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Acleray | LOGIN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #090a0f;
+      --surface: #11131a;
+      --surface-soft: #1a1d26;
+      --accent: #ff2d75;
+      --accent-soft: #ff4d94;
+      --text: #e6e8ec;
+      --text-muted: #8a8f9e;
+      --success: #00f0b3;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated Grid Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(rgba(9, 10, 15, 0.94), rgba(9, 10, 15, 0.94)),
+        repeating-linear-gradient(0deg, var(--border), var(--border) 1px, transparent 1px, transparent 50px),
+        repeating-linear-gradient(90deg, var(--border), var(--border) 1px, transparent 1px, transparent 50px);
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 25% 30%, rgba(255, 45, 117, 0.04) 0%, transparent 35%),
+        radial-gradient(circle at 75% 70%, rgba(0, 240, 179, 0.04) 0%, transparent 45%);
+      animation: drift 60s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-30px, -30px); }
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--surface-soft);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--accent), var(--success), var(--accent));
+      z-index: -1;
+      border-radius: 26px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .login-card:hover::before {
+      opacity: 1;
+    }
+
+    .logo {
+      font-size: 2.1rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .logo span {
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .tagline {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 40px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 16px;
+      background: rgba(17, 19, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 45, 117, 0.25);
+    }
+
+    .forgot-password {
+      display: block;
+      text-align: right;
+      color: var(--accent-soft);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .forgot-password:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(90deg, var(--accent), #ff1a66);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(255, 45, 117, 0.3);
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(255, 45, 117, 0.5);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .security-note {
+      margin-top: 30px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .security-note .highlight {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 36px 24px;
+      }
+      .logo { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <div class="logo">Acleray<span>.</span></div>
+    <p class="tagline">Secure access for accredited partners</p>
+
+    <form id="loginForm" method="POST">
+      {%csrf_token%}
+      <div class="input-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" autocomplete="username" name="email" required>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" name="password" required>
+      </div>
+
+      {% comment %} <a href="#" class="forgot-password">Forgot password?</a> {% endcomment %}
+
+      <button type="submit" class="login-btn">Secure Login</button>
+    </form>
+
+    <p class="security-note">
+      🔒 End-to-end encrypted • MFA required for fund access • 
+      <span class="highlight">256-bit AES</span>
+    </p>
+  </div>
+
+  {% comment %} <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Simple validation (in real app, send to backend)
+      if (email && password) {
+        // Simulate secure auth
+        document.querySelector('.login-btn').textContent = 'Authenticating...';
+        document.querySelector('.login-btn').disabled = true;
+        
+        setTimeout(() => {
+          alert('✅ Login successful!\n(For demo purposes only)');
+          // In real app: window.location.href = '/dashboard';
+        }, 1200);
+      }
+    });
+  </script> {% endcomment %}
+</body>
+</html>
