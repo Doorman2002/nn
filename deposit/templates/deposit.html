@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deposit Funds | Acleray</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #090a0f;
+      --surface: #11131a;
+      --surface-soft: #1a1d26;
+      --accent: #ff2d75;
+      --accent-soft: #ff4d94;
+      --text: #e6e8ec;
+      --text-muted: #8a8f9e;
+      --success: #00f0b3;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated Grid Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(rgba(9, 10, 15, 0.92), rgba(9, 10, 15, 0.92)),
+        repeating-linear-gradient(0deg, var(--border), var(--border) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(90deg, var(--border), var(--border) 1px, transparent 1px, transparent 40px);
+      z-index: -2;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 700px;
+      margin: 60px auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* WALLET LIST */
+    .wallets-card {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+
+    .wallets-title {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wallet-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wallet-item:last-child {
+      border-bottom: none;
+    }
+
+    .wallet-label {
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wallet-label span {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+
+    .wallet-address {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.2);
+      padding: 6px 12px;
+      border-radius: 8px;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: var(--accent-soft);
+      cursor: pointer;
+      font-size: 1rem;
+      margin-left: 10px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .copy-btn:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    /* FORM */
+    .form-card {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 16px;
+      background: rgba(17, 19, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 45, 117, 0.25);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(90deg, var(--accent), #ff1a66);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(255, 45, 117, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(255, 45, 117, 0.5);
+    }
+
+    /* BANK NOTE */
+    .bank-note {
+      margin-top: 36px;
+      padding: 20px;
+      background: rgba(0, 240, 179, 0.06);
+      border-left: 3px solid var(--success);
+      border-radius: 0 12px 12px 0;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .bank-note h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--success);
+    }
+
+    @media (max-width: 600px) {
+      .wallet-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .wallet-address {
+        max-width: 100%;
+      }
+      .container {
+        margin: 40px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Invest Funds</h1>
+      <p class="subtitle">Send crypto to our verified wallets below</p>
+    </header>
+
+    {% comment %} <!-- WALLET ADDRESSES -->
+    <div class="wallets-card">
+      <h2 class="wallets-title">Our Wallet Addresses</h2>
+      <div class="wallet-item">
+        <div class="wallet-label">Ethereum (ETH)</div>
+        <div style="display:flex;align-items:center;">
+          <div class="wallet-address" id="ethAddr">0x8ab873c73f3e7e33d87b9ed0135754ee666a1f8c</div>
+          <button class="copy-btn" data-clipboard="0x8ab873c73f3e7e33d87b9ed0135754ee666a1f8c">📋</button>
+        </div>
+      </div>
+      <div class="wallet-item">
+        <div class="wallet-label">Bitcoin (BTC)</div>
+        <div style="display:flex;align-items:center;">
+          <div class="wallet-address" id="btcAddr">bc1prnyecvx8xgdhyz03ukhfeqgqrhk7zk6lkulav5qs7d0cqfzcyx8srl400h</div>
+          <button class="copy-btn" data-clipboard="bc1prnyecvx8xgdhyz03ukhfeqgqrhk7zk6lkulav5qs7d0cqfzcyx8srl400h">📋</button>
+        </div>
+      </div>
+      <div class="wallet-item">
+        <div class="wallet-label">Solana (SOL)</div>
+        <div style="display:flex;align-items:center;">
+          <div class="wallet-address" id="solAddr">GdcZ7oCv5VDW3gmiw8e7134uLBYRKEbfuTjeD6FxBytW</div>
+          <button class="copy-btn" data-clipboard="GdcZ7oCv5VDW3gmiw8e7134uLBYRKEbfuTjeD6FxBytW">📋</button>
+        </div>
+      </div>
+      <div class="wallet-item">
+        <div class="wallet-label">BNB Chain (BNB)</div>
+        <div style="display:flex;align-items:center;">
+          <div class="wallet-address" id="bnbAddr">0x8ab873c73f3e7e33d87b9ed0135754ee666a1f8c</div>
+          <button class="copy-btn" data-clipboard="0x8ab873c73f3e7e33d87b9ed0135754ee666a1f8c">📋</button>
+        </div>
+      </div> {% endcomment %}
+      <div class="wallet-item">
+        <div class="wallet-label">Tron (TRX)</div>
+        <div style="display:flex;align-items:center;">
+          <div class="wallet-address" id="trxAddr">TUzgswyWiiZBAPJYmPw72rKvVC1HQw8oPT</div>
+          <button class="copy-btn" data-clipboard="TUzgswyWiiZBAPJYmPw72rKvVC1HQw8oPT">📋</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEPOSIT FORM -->
+    <div class="form-card">
+      <form id="depositForm" method="POST">
+        {%csrf_token%}
+        <div class="input-group">
+          <label for="amount">Amount Invested (USD)</label>
+          <input type="number" id="amount" step="0.01" placeholder="0.00" name="amount" required>
+        </div>
+
+        <div class="input-group">
+          <label for="txid">Transaction ID / Hash</label>
+          <input type="text" id="txid" placeholder="Paste your transaction hash here" name="id" required>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Deposit</button>
+      </form>
+
+      <!-- BANK WIRE NOTE -->
+      <div class="bank-note">
+        <h3>🏦 Bank Wire / Fiat Deposits</h3>
+        <p>Bank transfers, SWIFT, and fiat deposits are handled exclusively through our customer care team. Please contact support@nexus.capital to initiate a wire transfer or for assistance.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Copy to clipboard
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const address = btn.getAttribute('data-clipboard');
+        navigator.clipboard.writeText(address).then(() => {
+          const original = btn.textContent;
+          btn.textContent = '✓ Copied!';
+          setTimeout(() => {
+            btn.textContent = original;
+          }, 1500);
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+      });
+    });
+
+    // Form submission
+    document.getElementById('depositForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const amount = document.getElementById('amount').value;
+      const txid = document.getElementById('txid').value;
+      
+      if (amount && txid) {
+        alert(`✅ Deposit submitted!\nAmount: $${amount}\nWe’ll verify your transaction shortly.`);
+        // In real app: send to backend
+      }
+    });
+  </script>
+</body>
+</html>
